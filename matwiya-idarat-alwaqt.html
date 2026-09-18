@@ -202,6 +202,12 @@
 
     @media print {
       .bar { display: none !important; }
+      html, body, .page, .card, .hero, .chip, .banner, .credit,
+      .tip, .day, .quote-strip div, .footer, .check-item, * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
       body { background: #fff; }
       .pages { padding: 0; gap: 0; }
       .page {
@@ -210,7 +216,18 @@
         height: 297mm;
         min-height: 297mm;
         margin: 0;
+        background: #fffaf3 !important;
       }
+      .hero {
+        background: linear-gradient(135deg, #2ec4b6 0%, #4d96ff 55%, #9b5de5 100%) !important;
+      }
+      .c-teal { background: linear-gradient(180deg, #e6fffb, #b8f2e6) !important; }
+      .c-sun { background: linear-gradient(180deg, #fff8e1, #ffe08a) !important; }
+      .c-pink { background: linear-gradient(180deg, #fff0f5, #ffc2d4) !important; }
+      .c-blue { background: linear-gradient(180deg, #eef4ff, #c9dbff) !important; }
+      .c-lilac { background: linear-gradient(180deg, #f6efff, #e0c3ff) !important; }
+      .c-orange { background: linear-gradient(180deg, #fff4eb, #ffd0a8) !important; }
+      .c-coral { background: linear-gradient(180deg, #ffe8e8, #ffb4b4) !important; }
       @page { size: A4 portrait; margin: 0; }
     }
 
