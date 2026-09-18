@@ -8,18 +8,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --ink: #243038;
-      --coral: #ff6b6b;
-      --sun: #ffd166;
-      --teal: #2ec4b6;
-      --blue: #4d96ff;
-      --lilac: #9b5de5;
-      --orange: #f4a261;
-      --mint: #b8f2e6;
-    }
+    :root { --ink: #243038; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body, .page, .card, .hero, .chip, .banner, .credit, .tip, .day,
+    .quote-box, .footer, .check-item, .num, .day-tag, * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
 
     body {
       font-family: "Tajawal", sans-serif;
@@ -32,55 +30,47 @@
       position: sticky; top: 0; z-index: 50;
       display: flex; justify-content: space-between; align-items: center;
       gap: 12px; flex-wrap: wrap;
-      padding: 12px 16px; background: #243038; color: #fff; font-size: 14px;
+      padding: 12px 16px; background: #243038; color: #fff; font-size: 13px;
     }
-    .bar strong { color: var(--sun); }
+    .bar strong { color: #ffd166; }
     .bar button {
       font-family: inherit; font-weight: 800; border: 0; border-radius: 999px;
-      padding: 10px 20px; background: var(--coral); color: #fff; cursor: pointer;
+      padding: 10px 20px; background: #ff6b6b; color: #fff; cursor: pointer;
     }
 
     .pages { padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
     .page {
-      width: 210mm;
-      min-height: 297mm;
-      height: 297mm;
+      width: 210mm; min-height: 297mm; height: 297mm;
       background: #fffaf3;
       box-shadow: 0 10px 30px rgba(0,0,0,.18);
       padding: 8mm;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
       page-break-after: always;
-      display: flex;
-      flex-direction: column;
-      gap: 5mm;
+      display: flex; flex-direction: column; gap: 5mm;
     }
 
     h1, h2, h3 { font-family: "Baloo Bhaijaan 2", Tajawal, sans-serif; line-height: 1.15; }
 
+    /* خلفيات SVG قابلة للطباعة */
+    .fill-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none; display: block;
+    }
+    .has-fill { position: relative; overflow: hidden; background: transparent !important; }
+    .has-fill > *:not(.fill-svg):not(.deco) { position: relative; z-index: 1; }
+
     .hero {
-      background: linear-gradient(135deg, #2ec4b6 0%, #4d96ff 55%, #9b5de5 100%);
-      color: #fff;
-      border-radius: 18px;
-      padding: 10px 14px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      flex: 0 0 auto;
+      color: #fff; border-radius: 18px; padding: 10px 14px;
+      display: grid; grid-template-columns: 1fr auto; gap: 10px;
+      align-items: center; flex: 0 0 auto;
     }
     .hero h1 { font-size: 28px; font-weight: 800; }
     .hero .sub { font-size: 13px; opacity: .95; margin-top: 4px; }
+
     .credit {
-      background: rgba(255,255,255,.95);
-      color: var(--ink);
-      border-radius: 14px;
-      padding: 8px 10px;
-      text-align: center;
-      min-width: 160px;
+      background: #fff; color: var(--ink); border-radius: 14px;
+      padding: 8px 10px; text-align: center; min-width: 160px;
       box-shadow: 0 3px 0 rgba(0,0,0,.12);
     }
     .credit .name { color: #2563eb; font-weight: 800; font-size: 14px; }
@@ -93,39 +83,30 @@
     .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3.5mm; }
 
     .card {
-      border-radius: 16px;
-      padding: 9px 10px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      border-radius: 16px; padding: 9px 10px;
+      display: flex; flex-direction: column; gap: 5px;
+      border: 2px solid transparent;
     }
+    .card.h-teal { border-color: #2ec4b6; }
+    .card.h-sun { border-color: #e6b422; }
+    .card.h-pink { border-color: #ff6b9d; }
+    .card.h-blue { border-color: #4d96ff; }
+    .card.h-lilac { border-color: #9b5de5; }
+    .card.h-orange { border-color: #f4a261; }
+    .card.h-coral { border-color: #ff6b6b; }
+
     .card h2 { font-size: 16px; display: flex; align-items: center; gap: 6px; }
     .card p, .card li { font-size: 12px; }
     .card ul { padding-inline-start: 16px; }
     .card li { margin-bottom: 2px; }
 
-    .c-teal { background: linear-gradient(180deg, #e6fffb, #b8f2e6); border: 2px solid #2ec4b6; }
-
-    /* قسم إدارة الوقت — خط أكبر لملء المستطيل */
-    .card-time {
-      gap: 10px;
-      padding: 14px 13px;
-      justify-content: space-between;
-    }
+    .card-time { gap: 10px; padding: 14px 13px; justify-content: space-between; }
     .card-time h2 { font-size: 26px; }
     .card-time h3 { font-size: 19px !important; }
     .card-time p { font-size: 17px; line-height: 1.5; }
     .card-time li { font-size: 16.5px; line-height: 1.45; margin-bottom: 5px; }
     .card-time .icon { width: 38px; height: 38px; }
     .card-time ul { padding-inline-start: 20px; }
-    .c-sun { background: linear-gradient(180deg, #fff8e1, #ffe08a); border: 2px solid #e6b422; }
-    .c-pink { background: linear-gradient(180deg, #fff0f5, #ffc2d4); border: 2px solid #ff6b9d; }
-    .c-blue { background: linear-gradient(180deg, #eef4ff, #c9dbff); border: 2px solid #4d96ff; }
-    .c-lilac { background: linear-gradient(180deg, #f6efff, #e0c3ff); border: 2px solid #9b5de5; }
-    .c-orange { background: linear-gradient(180deg, #fff4eb, #ffd0a8); border: 2px solid #f4a261; }
-    .c-coral { background: linear-gradient(180deg, #ffe8e8, #ffb4b4); border: 2px solid #ff6b6b; }
 
     .icon {
       width: 28px; height: 28px; border-radius: 9px; background: #fff;
@@ -134,46 +115,49 @@
 
     .tip {
       display: flex; gap: 7px; align-items: flex-start;
-      background: rgba(255,255,255,.85); border-radius: 10px; padding: 5px 7px;
+      background: rgba(255,255,255,.88); border-radius: 10px; padding: 5px 7px;
     }
     .num {
       width: 22px; height: 22px; border-radius: 50%; color: #fff; font-weight: 800;
       font-size: 11px; display: grid; place-items: center; flex-shrink: 0;
+      position: relative; overflow: hidden; background: transparent !important;
     }
+    .num .fill-svg { border-radius: 50%; }
 
     .chip {
-      background: #fff; border-radius: 12px; padding: 8px 6px; text-align: center;
-      font-size: 11px; font-weight: 700; box-shadow: 0 2px 0 rgba(0,0,0,.06);
+      border-radius: 12px; padding: 8px 6px; text-align: center;
+      font-size: 11px; font-weight: 700;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-      min-height: 62px;
+      min-height: 62px; border: 1px solid rgba(0,0,0,.06);
     }
-    .chip svg { width: 28px; height: 28px; }
+    .chip svg:not(.fill-svg) { width: 28px; height: 28px; z-index: 1; }
 
     .check-item {
       display: flex; gap: 7px; align-items: center;
-      background: rgba(255,255,255,.9); border-radius: 9px; padding: 4px 7px; font-size: 11.5px;
+      background: rgba(255,255,255,.92); border-radius: 9px; padding: 4px 7px; font-size: 11.5px;
     }
     .box {
-      width: 14px; height: 14px; border: 2px solid #9b5de5; border-radius: 3px; flex-shrink: 0; background: #fff;
+      width: 14px; height: 14px; border: 2px solid #9b5de5; border-radius: 3px;
+      flex-shrink: 0; background: #fff;
     }
 
     .day {
       display: grid; grid-template-columns: 52px 1fr; gap: 6px; align-items: center;
-      background: rgba(255,255,255,.9); border-radius: 10px; padding: 5px 7px; font-size: 11.5px;
+      background: rgba(255,255,255,.92); border-radius: 10px; padding: 5px 7px; font-size: 11.5px;
     }
-    .day b {
-      color: #fff; text-align: center; border-radius: 8px; padding: 4px 2px; font-size: 10.5px;
+    .day-tag {
+      color: #fff; text-align: center; border-radius: 8px; padding: 4px 2px;
+      font-size: 10.5px; font-weight: 800; position: relative; overflow: hidden;
+      background: transparent !important;
     }
 
     .banner {
       border-radius: 14px; padding: 8px 10px; text-align: center; font-weight: 800;
-      font-size: 13px; color: #fff;
+      font-size: 13px; color: #fff; position: relative; overflow: hidden;
+      background: transparent !important;
     }
 
-    .deco {
-      position: absolute; pointer-events: none; opacity: .35; z-index: 0;
-    }
-    .card > *:not(.deco) { position: relative; z-index: 1; }
+    .deco { position: absolute; pointer-events: none; opacity: .35; z-index: 0; }
 
     .shape-row {
       display: flex; justify-content: space-between; align-items: center; gap: 4px;
@@ -182,12 +166,11 @@
 
     .fill { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 
-    .quote-strip {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4mm;
-    }
-    .quote-strip div {
-      border-radius: 12px; padding: 8px; font-size: 11.5px; font-weight: 700; text-align: center;
-      color: #fff;
+    .quote-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+    .quote-box {
+      border-radius: 12px; padding: 8px; font-size: 11.5px; font-weight: 700;
+      text-align: center; color: #fff; position: relative; overflow: hidden;
+      background: transparent !important;
     }
 
     .footer {
@@ -195,39 +178,17 @@
       background: #fff; border: 2px dashed #4d96ff; border-radius: 12px; padding: 6px;
     }
 
-    .art-band {
-      display: grid; grid-template-columns: repeat(6, 1fr); gap: 3mm;
-    }
+    .art-band { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3mm; }
     .art-band .chip { min-height: 54px; font-size: 10.5px; }
 
     @media print {
       .bar { display: none !important; }
-      html, body, .page, .card, .hero, .chip, .banner, .credit,
-      .tip, .day, .quote-strip div, .footer, .check-item, * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      body { background: #fff; }
+      body { background: #fff !important; }
       .pages { padding: 0; gap: 0; }
       .page {
-        box-shadow: none;
-        width: 210mm;
-        height: 297mm;
-        min-height: 297mm;
-        margin: 0;
-        background: #fffaf3 !important;
+        box-shadow: none; width: 210mm; height: 297mm; min-height: 297mm; margin: 0;
       }
-      .hero {
-        background: linear-gradient(135deg, #2ec4b6 0%, #4d96ff 55%, #9b5de5 100%) !important;
-      }
-      .c-teal { background: linear-gradient(180deg, #e6fffb, #b8f2e6) !important; }
-      .c-sun { background: linear-gradient(180deg, #fff8e1, #ffe08a) !important; }
-      .c-pink { background: linear-gradient(180deg, #fff0f5, #ffc2d4) !important; }
-      .c-blue { background: linear-gradient(180deg, #eef4ff, #c9dbff) !important; }
-      .c-lilac { background: linear-gradient(180deg, #f6efff, #e0c3ff) !important; }
-      .c-orange { background: linear-gradient(180deg, #fff4eb, #ffd0a8) !important; }
-      .c-coral { background: linear-gradient(180deg, #ffe8e8, #ffb4b4) !important; }
+      .fill-svg { display: block !important; }
       @page { size: A4 portrait; margin: 0; }
     }
 
@@ -238,14 +199,27 @@
 </head>
 <body>
   <div class="bar">
-    <div><strong>مطوية إدارة الوقت</strong> — صفحات عادية A4 للطباعة · ليان طارق البعم</div>
+    <div><strong>مطوية إدارة الوقت</strong> — عند الطباعة: فعّلي «رسومات الخلفية» إن لزم · ليان طارق البعم</div>
     <button type="button" onclick="window.print()">🖨️ طباعة</button>
   </div>
 
   <div class="pages">
-    <!-- ===================== PAGE 1 ===================== -->
-    <section class="page">
-      <header class="hero">
+    <section class="page has-fill">
+      <svg class="fill-svg" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fffaf3"/>
+      </svg>
+
+      <header class="hero has-fill">
+        <svg class="fill-svg" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 400 120">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2ec4b6"/>
+              <stop offset="55%" stop-color="#4d96ff"/>
+              <stop offset="100%" stop-color="#9b5de5"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="120" rx="18" fill="url(#hg)"/>
+        </svg>
         <div>
           <h1>إدارة الوقت ممتعة! ⏰</h1>
           <p class="sub">دليلكِ الصغير لتنظيم يومكِ بذكاء ومرح ونجاح</p>
@@ -271,41 +245,47 @@
             <div class="meta">بإشراف المعلمة ربى</div>
           </div>
         </div>
-        <!-- decorative circles -->
-        <svg class="deco" style="left:-20px;top:-20px;width:90px;height:90px;" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#fff"/></svg>
-        <svg class="deco" style="right:40%;bottom:-30px;width:70px;height:70px;" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#ffd166"/></svg>
       </header>
 
       <div class="art-band">
-        <div class="chip" style="background:#ffe8e8;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#ffe8e8"/></svg>
           <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#ff6b6b"/><path d="M14 25l6 6 14-14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
           أنجزي
         </div>
-        <div class="chip" style="background:#e6fffb;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#e6fffb"/></svg>
           <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="28" rx="6" fill="#2ec4b6"/><rect x="14" y="18" width="20" height="3" fill="#fff"/><rect x="14" y="25" width="14" height="3" fill="#fff"/></svg>
           خططي
         </div>
-        <div class="chip" style="background:#fff4eb;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff4eb"/></svg>
           <svg viewBox="0 0 48 48"><polygon points="24,4 29,18 44,18 32,28 36,42 24,33 12,42 16,28 4,18 19,18" fill="#f4a261"/></svg>
           ركّزي
         </div>
-        <div class="chip" style="background:#eef4ff;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#eef4ff"/></svg>
           <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#4d96ff"/><circle cx="24" cy="24" r="12" fill="#fff"/><line x1="24" y1="24" x2="24" y2="14" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/></svg>
           نظّمي
         </div>
-        <div class="chip" style="background:#f6efff;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#f6efff"/></svg>
           <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#9b5de5"/><text x="24" y="30" text-anchor="middle" fill="#fff" font-size="18" font-family="Arial">★</text></svg>
           استمتعي
         </div>
-        <div class="chip" style="background:#fff8e1;">
+        <div class="chip has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff8e1"/></svg>
           <svg viewBox="0 0 48 48"><ellipse cx="24" cy="28" rx="16" ry="12" fill="#ffd166"/><circle cx="18" cy="18" r="6" fill="#ffb703"/><circle cx="30" cy="16" r="7" fill="#fb8500"/></svg>
           ارتاحي
         </div>
       </div>
 
       <div class="grid-2" style="flex:1.15;">
-        <article class="card c-teal fill card-time">
-          <svg class="deco" style="right:-15px;bottom:-15px;width:80px;height:80px;" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="#2ec4b6"/></svg>
+        <article class="card h-teal fill card-time has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e6fffb"/><stop offset="100%" stop-color="#b8f2e6"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gTeal)"/>
+          </svg>
           <h2><span class="icon"><svg width="22" height="22" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#2ec4b6"/><text x="16" y="21" text-anchor="middle" fill="#fff" font-size="14">؟</text></svg></span> ما هي إدارة الوقت؟</h2>
           <p>إدارة الوقت تعني أن <strong>تختاري</strong> ماذا تفعلين أولاً، ومتى تلعبين، ومتى تستريحين، حتى يكفي يومكِ لكل شيء مهم.</p>
           <p><strong>تخيّلي:</strong> اليوم صندوق فيه ساعات. لو رتّبتِه تجدين مكاناً للواجب والرسم والعائلة والراحة!</p>
@@ -326,48 +306,68 @@
           </div>
         </article>
 
-        <article class="card c-sun fill">
-          <svg class="deco" style="left:-20px;top:-20px;width:90px;height:90px;" viewBox="0 0 90 90"><circle cx="45" cy="45" r="40" fill="#ffd166"/></svg>
+        <article class="card h-sun fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gSun" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff8e1"/><stop offset="100%" stop-color="#ffe08a"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gSun)"/>
+          </svg>
           <h2><span class="icon">💡</span> 6 نصائح ذهبية</h2>
-          <div class="tip"><span class="num" style="background:#ff6b6b;">1</span><div><strong>اكتبي قائمة صغيرة</strong><br/>واجب · قراءة · ترتيب · لعب · راحة</div></div>
-          <div class="tip"><span class="num" style="background:#4d96ff;">2</span><div><strong>ابدئي بالأهم</strong><br/>الواجب أولاً… ثم مكافأة اللعب</div></div>
-          <div class="tip"><span class="num" style="background:#2ec4b6;">3</span><div><strong>قسّمي الوقت</strong><br/>25 دقيقة تركيز + 5 دقائق راحة</div></div>
-          <div class="tip"><span class="num" style="background:#9b5de5;">4</span><div><strong>أبعدي المشتتات</strong><br/>الجوال والتلفاز أثناء الدراسة</div></div>
-          <div class="tip"><span class="num" style="background:#f4a261;">5</span><div><strong>نامي مبكراً</strong><br/>لتعطي دماغكِ طاقة الغد</div></div>
-          <div class="tip"><span class="num" style="background:#ef476f;">6</span><div><strong>كافئي نفسكِ</strong><br/>لعبة أو رسم بعد الإنجاز</div></div>
-          <div class="banner" style="background:#f4a261;margin-top:auto;">رتّبي ← أنجزي ← استمتعي 🌟</div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#ff6b6b"/></svg>1</span><div><strong>اكتبي قائمة صغيرة</strong><br/>واجب · قراءة · ترتيب · لعب · راحة</div></div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#4d96ff"/></svg>2</span><div><strong>ابدئي بالأهم</strong><br/>الواجب أولاً… ثم مكافأة اللعب</div></div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#2ec4b6"/></svg>3</span><div><strong>قسّمي الوقت</strong><br/>25 دقيقة تركيز + 5 دقائق راحة</div></div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#9b5de5"/></svg>4</span><div><strong>أبعدي المشتتات</strong><br/>الجوال والتلفاز أثناء الدراسة</div></div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#f4a261"/></svg>5</span><div><strong>نامي مبكراً</strong><br/>لتعطي دماغكِ طاقة الغد</div></div>
+          <div class="tip"><span class="num has-fill"><svg class="fill-svg" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#ef476f"/></svg>6</span><div><strong>كافئي نفسكِ</strong><br/>لعبة أو رسم بعد الإنجاز</div></div>
+          <div class="banner has-fill" style="margin-top:auto;">
+            <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 40"><rect width="100" height="40" rx="10" fill="#f4a261"/></svg>
+            رتّبي ← أنجزي ← استمتعي 🌟
+          </div>
         </article>
       </div>
 
       <div class="quote-strip">
-        <div style="background:#ff6b6b;">✨ الوقت كنز… استخدمه بذكاء!</div>
-        <div style="background:#9b5de5;">💪 أنتِ قادرة… أنتِ بطلة الوقت!</div>
+        <div class="quote-box has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 40"><rect width="100" height="40" rx="10" fill="#ff6b6b"/></svg>
+          ✨ الوقت كنز… استخدمه بذكاء!
+        </div>
+        <div class="quote-box has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 40"><rect width="100" height="40" rx="10" fill="#9b5de5"/></svg>
+          💪 أنتِ قادرة… أنتِ بطلة الوقت!
+        </div>
       </div>
     </section>
 
-    <!-- ===================== PAGE 2 ===================== -->
-    <section class="page">
-      <div class="grid-2" style="flex:1;">
-        <article class="card c-blue fill">
-          <svg class="deco" style="right:-10px;top:40%;width:70px;height:70px;" viewBox="0 0 70 70"><rect x="5" y="5" width="60" height="60" rx="14" fill="#4d96ff"/></svg>
-          <h2><span class="icon">📅</span> يوم نموذجي لطيف</h2>
-          <div class="day"><b style="background:#4d96ff;">صباحاً</b><span>إفطار صحي · تجهيز الحقيبة · مدرسة بابتسامة</span></div>
-          <div class="day"><b style="background:#2ec4b6;">الظهر</b><span>غداء · راحة قصيرة · ثم البدء بالواجب</span></div>
-          <div class="day"><b style="background:#f4a261;">عصراً</b><span>واجب · قراءة · مراجعة سريعة للدروس</span></div>
-          <div class="day"><b style="background:#ff6b6b;">مساءً</b><span>لعب · عائلة · هواية · ترتيب غرفتكِ</span></div>
-          <div class="day"><b style="background:#9b5de5;">ليلاً</b><span>غسل أسنان · قصة قصيرة · نوم مبكر</span></div>
+    <section class="page has-fill">
+      <svg class="fill-svg" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fffaf3"/>
+      </svg>
 
+      <div class="grid-2" style="flex:1;">
+        <article class="card h-blue fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#eef4ff"/><stop offset="100%" stop-color="#c9dbff"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gBlue)"/>
+          </svg>
+          <h2><span class="icon">📅</span> يوم نموذجي لطيف</h2>
+          <div class="day"><span class="day-tag has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 52 24"><rect width="52" height="24" rx="8" fill="#4d96ff"/></svg>صباحاً</span><span>إفطار صحي · تجهيز الحقيبة · مدرسة بابتسامة</span></div>
+          <div class="day"><span class="day-tag has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 52 24"><rect width="52" height="24" rx="8" fill="#2ec4b6"/></svg>الظهر</span><span>غداء · راحة قصيرة · ثم البدء بالواجب</span></div>
+          <div class="day"><span class="day-tag has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 52 24"><rect width="52" height="24" rx="8" fill="#f4a261"/></svg>عصراً</span><span>واجب · قراءة · مراجعة سريعة للدروس</span></div>
+          <div class="day"><span class="day-tag has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 52 24"><rect width="52" height="24" rx="8" fill="#ff6b6b"/></svg>مساءً</span><span>لعب · عائلة · هواية · ترتيب غرفتكِ</span></div>
+          <div class="day"><span class="day-tag has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 52 24"><rect width="52" height="24" rx="8" fill="#9b5de5"/></svg>ليلاً</span><span>غسل أسنان · قصة قصيرة · نوم مبكر</span></div>
           <h3 style="font-size:13px;color:#2563eb;margin-top:4px;">رسوم الوقت الملونة</h3>
           <div class="grid-4" style="margin-top:2px;">
-            <div class="chip"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="#ffd166"/><circle cx="20" cy="20" r="6" fill="#fff"/></svg>ساعة</div>
-            <div class="chip"><svg viewBox="0 0 40 40"><rect x="8" y="6" width="24" height="28" rx="4" fill="#4d96ff"/><rect x="12" y="12" width="16" height="3" fill="#fff"/><rect x="12" y="18" width="12" height="3" fill="#fff"/></svg>دفتر</div>
-            <div class="chip"><svg viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" fill="#2ec4b6"/></svg>هدف</div>
-            <div class="chip"><svg viewBox="0 0 40 40"><path d="M20 6l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" fill="#ff6b6b"/></svg>نجمة</div>
+            <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff"/></svg><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="#ffd166"/><circle cx="20" cy="20" r="6" fill="#fff"/></svg>ساعة</div>
+            <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff"/></svg><svg viewBox="0 0 40 40"><rect x="8" y="6" width="24" height="28" rx="4" fill="#4d96ff"/><rect x="12" y="12" width="16" height="3" fill="#fff"/><rect x="12" y="18" width="12" height="3" fill="#fff"/></svg>دفتر</div>
+            <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff"/></svg><svg viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" fill="#2ec4b6"/></svg>هدف</div>
+            <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff"/></svg><svg viewBox="0 0 40 40"><path d="M20 6l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" fill="#ff6b6b"/></svg>نجمة</div>
           </div>
         </article>
 
-        <article class="card c-lilac fill">
-          <svg class="deco" style="left:-15px;bottom:-15px;width:85px;height:85px;" viewBox="0 0 85 85"><circle cx="42" cy="42" r="38" fill="#9b5de5"/></svg>
+        <article class="card h-lilac fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gLilac" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f6efff"/><stop offset="100%" stop-color="#e0c3ff"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gLilac)"/>
+          </svg>
           <h2><span class="icon">✅</span> قائمة إنجازي</h2>
           <p style="font-size:11.5px;font-weight:700;">علّمي ✓ على ما أنجزتِه اليوم:</p>
           <div class="check-item"><span class="box"></span> رتّبتُ حقيبتي مساءً</div>
@@ -378,12 +378,19 @@
           <div class="check-item"><span class="box"></span> شربتُ ماءً وحرصتُ على صحتي</div>
           <div class="check-item"><span class="box"></span> راجعتُ دروسي بهدوء</div>
           <div class="check-item"><span class="box"></span> نمتُ في وقت مناسب</div>
-          <div class="banner" style="background:#9b5de5;margin-top:auto;">⭐ فكرة: نجمة على التقويم كل يوم منظم!</div>
+          <div class="banner has-fill" style="margin-top:auto;">
+            <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 40"><rect width="100" height="40" rx="10" fill="#9b5de5"/></svg>
+            ⭐ فكرة: نجمة على التقويم كل يوم منظم!
+          </div>
         </article>
       </div>
 
       <div class="grid-3" style="flex:0.72;">
-        <article class="card c-coral fill">
+        <article class="card h-coral fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gCoral" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe8e8"/><stop offset="100%" stop-color="#ffb4b4"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gCoral)"/>
+          </svg>
           <h2 style="font-size:14px;">✅ افعلي</h2>
           <ul>
             <li>خططي مساءً ليوم الغد</li>
@@ -399,7 +406,11 @@
           </div>
         </article>
 
-        <article class="card c-orange fill">
+        <article class="card h-orange fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff4eb"/><stop offset="100%" stop-color="#ffd0a8"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gOrange)"/>
+          </svg>
           <h2 style="font-size:14px;">❌ تجنّبي</h2>
           <ul>
             <li>التأجيل الكثير للواجب</li>
@@ -415,7 +426,11 @@
           </div>
         </article>
 
-        <article class="card c-pink fill">
+        <article class="card h-pink fill has-fill">
+          <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs><linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff0f5"/><stop offset="100%" stop-color="#ffc2d4"/></linearGradient></defs>
+            <rect width="100" height="100" rx="8" fill="url(#gPink)"/>
+          </svg>
           <h2 style="font-size:14px;">🎯 تحدي الأسبوع</h2>
           <p>اختاري <strong>3 أيام</strong> ونفّذي النصائح الذهبية.</p>
           <p>في النهاية اسألي نفسكِ:</p>
@@ -424,20 +439,27 @@
             <li>هل شعرتُ بهدوء؟</li>
             <li>هل بقي وقت للعب؟</li>
           </ul>
-          <div class="banner" style="background:#ff6b9d;margin-top:auto;font-size:11px;">أنا أتحدى نفسي هذا الأسبوع!</div>
+          <div class="banner has-fill" style="margin-top:auto;font-size:11px;">
+            <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 40"><rect width="100" height="40" rx="10" fill="#ff6b9d"/></svg>
+            أنا أتحدى نفسي هذا الأسبوع!
+          </div>
         </article>
       </div>
 
       <div class="art-band">
-        <div class="chip" style="background:#e6fffb;"><svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#2ec4b6"/><rect x="14" y="6" width="12" height="10" rx="3" fill="#4d96ff"/></svg>صباح نشيط</div>
-        <div class="chip" style="background:#eef4ff;"><svg viewBox="0 0 40 40"><rect x="6" y="8" width="28" height="24" rx="4" fill="#4d96ff"/><path d="M12 20h16M12 26h10" stroke="#fff" stroke-width="2"/></svg>دراسة ذكية</div>
-        <div class="chip" style="background:#fff8e1;"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#ffd166"/><circle cx="15" cy="17" r="2" fill="#243038"/><circle cx="25" cy="17" r="2" fill="#243038"/><path d="M14 25c2 3 10 3 12 0" stroke="#243038" stroke-width="2" fill="none"/></svg>استراحة</div>
-        <div class="chip" style="background:#ffe8e8;"><svg viewBox="0 0 40 40"><path d="M8 28c0-10 24-10 24 0v4H8z" fill="#ff6b6b"/><circle cx="20" cy="14" r="7" fill="#f4a261"/></svg>عائلة</div>
-        <div class="chip" style="background:#f6efff;"><svg viewBox="0 0 40 40"><path d="M10 30V12l10-6 10 6v18H10z" fill="#9b5de5"/><rect x="17" y="20" width="6" height="10" fill="#fff"/></svg>ترتيب</div>
-        <div class="chip" style="background:#fff0f5;"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="24" rx="14" ry="10" fill="#ffc2d4"/><path d="M10 20c0-8 20-8 20 0" fill="#ff8fab"/></svg>نوم هانئ</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#e6fffb"/></svg><svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#2ec4b6"/><rect x="14" y="6" width="12" height="10" rx="3" fill="#4d96ff"/></svg>صباح نشيط</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#eef4ff"/></svg><svg viewBox="0 0 40 40"><rect x="6" y="8" width="28" height="24" rx="4" fill="#4d96ff"/><path d="M12 20h16M12 26h10" stroke="#fff" stroke-width="2"/></svg>دراسة ذكية</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff8e1"/></svg><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#ffd166"/><circle cx="15" cy="17" r="2" fill="#243038"/><circle cx="25" cy="17" r="2" fill="#243038"/><path d="M14 25c2 3 10 3 12 0" stroke="#243038" stroke-width="2" fill="none"/></svg>استراحة</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#ffe8e8"/></svg><svg viewBox="0 0 40 40"><path d="M8 28c0-10 24-10 24 0v4H8z" fill="#ff6b6b"/><circle cx="20" cy="14" r="7" fill="#f4a261"/></svg>عائلة</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#f6efff"/></svg><svg viewBox="0 0 40 40"><path d="M10 30V12l10-6 10 6v18H10z" fill="#9b5de5"/><rect x="17" y="20" width="6" height="10" fill="#fff"/></svg>ترتيب</div>
+        <div class="chip has-fill"><svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 100 100"><rect width="100" height="100" rx="12" fill="#fff0f5"/></svg><svg viewBox="0 0 40 40"><ellipse cx="20" cy="24" rx="14" ry="10" fill="#ffc2d4"/><path d="M10 20c0-8 20-8 20 0" fill="#ff8fab"/></svg>نوم هانئ</div>
       </div>
 
-      <div class="banner" style="background:linear-gradient(90deg,#2ec4b6,#4d96ff,#9b5de5);">
+      <div class="banner has-fill">
+        <svg class="fill-svg" preserveAspectRatio="none" viewBox="0 0 400 40">
+          <defs><linearGradient id="gMsg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#2ec4b6"/><stop offset="50%" stop-color="#4d96ff"/><stop offset="100%" stop-color="#9b5de5"/></linearGradient></defs>
+          <rect width="400" height="40" rx="12" fill="url(#gMsg)"/>
+        </svg>
         رسالة من ليان: الوقت صديقكِ إذا أحسنتِ استخدامه… فابدئي اليوم! 🌈
       </div>
 
